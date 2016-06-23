@@ -10,16 +10,16 @@ gamma = 1.0 # discounting factor (1.0 -> no discounting)
 alpha = 0.3 # learning rate
 epsilon = 0.0 # exploration factor (0.0 -> no exploration)
 
-def normalize(high, low, value):
-    return int(45*(value-low)/(high-low))
+def normalize(high, low, value, partitions):
+    return int(partitions*(value-low)/(high-low))
 
 def state_key(state):
     return "{},{}".format( \
-        normalize(env.observation_space.high[0], env.observation_space.low[0], state[0]), \
-        normalize(env.observation_space.high[1], env.observation_space.low[1], state[1]) \
+        normalize(env.observation_space.high[0], env.observation_space.low[0], state[0], 25), \
+        normalize(env.observation_space.high[1], env.observation_space.low[1], state[1], 59) \
     )
 
-env.monitor.start('/tmp/MountainCar-v0/experiment-6')
+# env.monitor.start('/tmp/MountainCar-v0/experiment-6')
 
 sum = 0
 
@@ -66,4 +66,4 @@ for i_episode in range(15000):
 
     # print("Episode {} finished".format(i_episode))
 
-env.monitor.close()
+# env.monitor.close()
